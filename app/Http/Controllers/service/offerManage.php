@@ -57,22 +57,26 @@ class offerManage extends Controller
    */
   public function show(string $id)
   {
-    return view('content.service.offer-manage', ['offers' => offer::find($id)]);
+    return view('edit', ['offers' => offer::find($id)]);
   }
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(service $id)
+  public function edit(offer $id)
   {
-    $record = offer::find($id);
-    return  redirect('/service/offer-manage')->with('record', $record);
+    $offer  = offer::find($id);
+    return view('content.service.offer-manage', ['offer' => $offer]); 
   }
+  /**
+     * Update the specified resource in storage.
+     */
   public function update(Request $request, $id)
   {
-    $record = offer::find($id);
-    $record->update($request->all());
-    return redirect()->back()->with('success', 'Record updated successfully');
+    $offer  = offer::find($id);
+    $offer->update($request->all());
+    return redirect('/service/offer-manage')->with('success', 'Record updated successfully');
   }
+
   /**
    * Remove the specified resource from storage.
    */

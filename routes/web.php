@@ -38,8 +38,8 @@ Route::get('/service/offer-manage', $controller_path . '\service\offerManage@ind
 Route::post('/offer',  $controller_path .'\service\offerManage@store')->name('offer.index');
 Route::get('/offer/offer-manage/{id}/restore',  $controller_path .'\service\offerManage@restore')->name('offer.restore');
 Route::delete('/service/service-manage/{id}/destroyoffer', $controller_path .'\service\offerManage@destroy')->name('offer.destroy');
-Route::get('/service/service-manage/edit/{id}',  $controller_path .'\service\offerManage@edit')->name('edit.record');
-Route::put('/service/service-manage/update/{id}', $controller_path .'\service\offerManage@update')->name('update.record');
+Route::get('/service/service-manage/{id}/edit',  $controller_path .'\service\offerManage@edit')->name('offer.edit');
+Route::put('/service/service-manage/update/{id}', $controller_path .'\service\offerManage@update')->name('offer.update');
 
 //staff
 Route::delete('/staff/Staff-manage/{id}', $controller_path .'\staff\staffManage@destroy')->name('staff.destroy');

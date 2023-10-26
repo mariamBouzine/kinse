@@ -95,8 +95,17 @@
                             <td>{{$item["Description"]}}</td>
                             <td>
                                 <div class="d-inline-block text-nowrap">
+                                    <button class="btn btn-sm btn-icon edit-record" tabindex="0"
+                                        aria-controls="DataTables_Table_0" data-offer-id="{{ $item->id }}" type="button"
+                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditOffer">
+                                        <i class="bx bx-edit"></i>
+                                    </button>
+                                    <a class="btn btn-sm btn-icon edit-record" tabindex="0" href="#offcanvasEditOffer&id={{ $item->id }}"
+                                        aria-controls="DataTables_Table_0" data-offer-id="{{ $item->id }}" type="button"
+                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditOffer">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
                                     <form action="{{ route('offer.destroy',['id' => $item->id]) }}" method="POST">
-                                        <button class="btn btn-info" data-toggle="offcanvas" data-target="#offcanvasEdit"><i class="bx bx-edit"></i></button>
                                         {{-- <a href="" class="btn btn-sm btn-icon edit-record" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit"><i class="bx bx-edit"></i></a> --}}
                                         @csrf
                                         @method('DELETE')
@@ -104,11 +113,6 @@
                                             class="btn btn-sm btn-icon delete-record" data-id="58"><i
                                                 class='bx bx-trash'></i></button>
                                     </form>
-                                    {{-- <form method="POST" action="{{ route('update.record', ['id' => $item->id]) }}">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </form> --}}
                                 </div>
                             </td>
                         </tr>
@@ -116,7 +120,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
         <!-- Offcanvas to add new user -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddOffer"
@@ -224,18 +227,20 @@
             </div>
         </div>
         {{-- /// end--}}
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddOffer"
-            aria-labelledby="offcanvasAddOfferLabel">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditOffer"
+            aria-labelledby="offcanvasEditOfferLabel">
             <div class="offcanvas-header">
-                <h5 id="offcanvasAddOfferLabel" class="offcanvas-title">Add Offer</h5>
+                <h5 id="offcanvasEditOfferLabel" class="offcanvas-title">Edit Offer</h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
             <div class="offcanvas-body mx-0 flex-grow-0">
                 <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm"
-                    novalidate="novalidate" method="POST" action="{{ route('update.record', $record->id) }}">
+                    novalidate="novalidate" method="POST" action="">
+                    {{-- {{ route('offers.update', ['id' => $offers->id]) }} --}}
                     @csrf
-                    {{-- <input type="hidden" name="id" id="user_id"> --}}
+                    @method('PUT')
+                    <input type="hidden" name="id" id="user_id">
                     <div class="mb-3 fv-plugins-icon-container">
                         <label class="form-label" for="add-NameOffer">Name Offer</label>
                         <input type="text" class="form-control" id="add-NameOffer" placeholder="Enter Your Offer"
@@ -320,6 +325,87 @@
                 </form>
             </div>
         </div>
+        {{-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        <div class="modal fade" id="edit-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" align="center"><b>Edit User</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" action="/edit_user">
+                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">User ID</label>
+                                    <input type="text" class="form-control" name="user_id" placeholder="User ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Username</label>
+                                    <input type="text" class="form-control" name="username"
+                                        placeholder="Enter username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="text" class="form-control" name="email" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Contact</label>
+                                    <input type="text" class="form-control" name="contact" placeholder="Enter contact">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Change Password</label>
+                                    <input type="password" class="form-control" name="change_password"
+                                        placeholder="Enter password">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left"
+                                    data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        // $(document).ready(function() {
+        //     /**
+        //      * for showing edit item popup
+        //      */
+        //     $(document).on('click', "#edit-item", function() {
+        //         $(this).addClass(
+        //         'edit-item-trigger-clicked'); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
+        //         var options = {
+        //             'backdrop': 'static'
+        //         };
+        //         $('#edit-modal').modal(options)
+        //     })
+        //     // on modal show
+        //     $('#edit-modal').on('show.bs.modal', function() {
+        //         var el = $(".edit-item-trigger-clicked"); // See how its usefull right here? 
+        //         var row = el.closest(".data-row");
+        //         // get the data
+        //         var id = el.data('item-id');
+        //         var name = row.children(".name").text();
+        //         var description = row.children(".description").text();
+        //         // fill the data in the input fields
+        //         $("#modal-input-id").val(id);
+        //         $("#modal-input-name").val(name);
+        //         $("#modal-input-description").val(description);
+        //     })
+        //     // on modal hide
+        //     $('#edit-modal').on('hide.bs.modal', function() {
+        //         $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
+        //         $("#edit-form").trigger("reset");
+        //     })
+        // })
+    </script>
 </div>
 @endsection
