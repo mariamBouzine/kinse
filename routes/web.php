@@ -19,6 +19,7 @@ $controller_path = 'App\Http\Controllers';
 
 // Main Page Route
 Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
+Route::get('/dashboard/crm', $controller_path . '\dashboard\Crm@index')->name('dashboard-crm');
 //Appointment
 Route::get('/appointment/appointment-manage', $controller_path . '\appointment\appointmentManage@index')->name('appointment-manage');
 //patients

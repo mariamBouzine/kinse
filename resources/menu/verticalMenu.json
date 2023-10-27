@@ -7,6 +7,12 @@
       "slug": "dashboard-analytics"
     },
     {
+      "url": "dashboard/crm",
+      "name": "CRM",
+      "icon": "menu-icon tf-icons bx bxs-home-circle",
+      "slug": "dashboard-crm"
+    },
+    {
       "name": "Appointment",
       "icon": "menu-icon tf-icons bx bxs-calendar",
       "slug": "appointment-manage",

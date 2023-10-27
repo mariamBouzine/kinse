@@ -83,15 +83,21 @@
                             <span>#{{$item["id"]}}</span>
                         </td>
                         <td>
-                            <span>{{$item["First_Name"]}} {{$item["Last_Name"]}}</span>
-                        </td>
-                        {{-- <td class="sorting_1">
                             <div class="d-flex justify-content-start align-items-center user-name">
-                                <div class="d-flex flex-column">
-                                    <a href="#" class="text-body text-truncate"><span class="fw-medium"></span></a>
+                                <div class="avatar-wrapper">
+                                  <div class="avatar avatar-sm me-3">
+                                    <span class="avatar-initial rounded-circle bg-label-warning">
+                                        {{substr($item["First_Name"], 0, 1);}}
+                                        {{substr($item["Last_Name"], 0, 1);}}
+                                    </span>
+                                  </div>
                                 </div>
-                            </div>
-                        </td> --}}
+                                <div class="d-flex flex-column">
+                                  <span class="fw-medium">{{$item["First_Name"]}} {{$item["Last_Name"]}}</span>
+                                </div>
+                              </div>
+                        </td>
+ 
                         <td>
                             <span >{{$item["Phone"]}}</span>
                         </td>

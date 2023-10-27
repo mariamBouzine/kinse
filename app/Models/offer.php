@@ -18,4 +18,8 @@ class offer extends Model
     {
         return $this->belongsTo(staff::class);
     }
+    public function appointment()
+    {
+        return $this->hasMany(appointment::class);
+    }
 }
