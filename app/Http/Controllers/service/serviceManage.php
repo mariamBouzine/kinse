@@ -53,15 +53,15 @@ class serviceManage extends Controller
    */
   public function edit(service $id)
   {
-    $services = service::find($id);
+    // $services = service::find($id);
 
-    if ($services) {
-      return view('services.edit', compact('services'));
-    } else {
-      return redirect('/service/service-manage')->with('error', 'Service not found');
-    }
-    // $S = service::find($id);
-    // return view('content.service.service-manage', ['services' => $S]);
+    // if ($services) {
+    //   return view('content.service.service-manage', compact('services'));
+    // } else {
+    //   return redirect('/service/service-manage')->with('error', 'Service not found');
+    // }
+    $services = service::find($id);
+    return view('content.service.service-manage', ['services' => $services]);
   }
   /**
    * Remove the specified resource from storage.

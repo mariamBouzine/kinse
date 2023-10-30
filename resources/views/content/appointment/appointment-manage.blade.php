@@ -11,7 +11,7 @@
 
 <div class="card">
   <div class="card-header">
-    {{-- <h5 class="card-title mb-0">Search Filter</h5> --}}
+    <h5 class="card-title mb-0">Search Filter</h5>
   </div>
   <div class="card-datatable table-responsive">
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer" style="">
@@ -21,13 +21,13 @@
             <div class="dataTables_length" id="DataTables_Table_0_length">
               <label>
                 <div class="dt-buttons">
-                  <button class="dt-button add-new btn btn-secondary" tabindex="0" aria-controls="DataTables_Table_0"
+                  {{-- <button class="dt-button add-new btn btn-secondary" tabindex="0" aria-controls="DataTables_Table_0"
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddOffer">
                     <span>
                       <i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add
                         New Offer</span>
                     </span>
-                  </button>
+                  </button> --}}
                 </div>
               </label>
             </div>

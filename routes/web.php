@@ -29,7 +29,6 @@ Route::get('/patients/patients-manage', $controller_path . '\patients\patientsMa
 //wallet
 Route::get('/wallet/wallet-manage', $controller_path . '\wallet\walletManage@index')->name('wallet-manage');
 //service
-// Route::resource('/service',serviceManage::class);
 Route::delete('/service/service-manage/{id}', $controller_path .'\service\serviceManage@destroy')->name('service.destroy');
 Route::get('/offer/offer-manage/restore/{id}',  $controller_path .'\service\serviceManage@restore')->name('service.restore');
 Route::post('/service',  $controller_path .'\service\serviceManage@store');
