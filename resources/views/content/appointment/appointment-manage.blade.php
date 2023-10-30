@@ -9,146 +9,183 @@
 @section('content')
 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Appointment /</span> appointment manage</h4>
 
-<!-- Striped Rows -->
 <div class="card">
-    <h5 class="card-header">
-      <div class="input-group">
-        <div class="row mx-2">
-          <div class="col-md-2">
-            <div class="me-3">
-              <div class="dataTables_length" id="DataTables_Table_0_length">
-                <label>
-                  <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-10">
-            <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
-              <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                <label>
-                  <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0">
-                </label>
-              </div>
-              <div class="dt-buttons"> 
-                {{-- <button class="dt-button buttons-collection dropdown-toggle btn btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-2"></i>Export</span><span class="dt-down-arrow">▼</span></button> --}}
-                <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="bx bx-plus me-0 me-sm-2"></i><span class="d-none d-sm-inline-block">Add New User</span></span></button> 
-              </div>
+  <div class="card-header">
+    {{-- <h5 class="card-title mb-0">Search Filter</h5> --}}
+  </div>
+  <div class="card-datatable table-responsive">
+    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer" style="">
+      <div class="row m-2">
+        <div class="col-md-2">
+          <div class="me-3">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+              <label>
+                <h5 class="card-title mb-0">Search Filter</h5>
+              </label>
             </div>
           </div>
         </div>
-        {{-- <p>Type Sevice</p>
-        <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-          <option selected>Choose...</option>
-          <option value="1">Clinic</option>
-          <option value="2">Home</option>
-          <option value="3">Online</option>
-        </select> --}}
+        <div class="col-md-10">
+          <div
+            class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
+            <div class="dt-buttons">
+              {{-- action="{{ route('appointments.filter') }}" --}}
+              <form method="POST" action="{{ route('appointments.filter') }}">
+                @csrf
+                <div class="row mb-3">
+                  <input type="date" style="width: 37%" class="form-control col-6 m-1" name="start_date">
+                  <input type="date" style="width: 37%" class="form-control col-6 m-1" name="end_date">
+                  <button type="submit" style="width: 19%" class="dt-button add-new btn btn-primary m-1">Filter</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      
-    </h5>
-    <div class="table-responsive text-nowrap">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Patient</th>
-            <th>Date</th>
-            <th>Phone</th>
-            <th>Offer</th>
-            <th>Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-          <tr>
-            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#<span>001</span></strong></td>
-            <td>Matt Dickerson</td>
-            <td>13/05/2022  11:15 AM</td>
-            <td>844-575-3135</td>
-            <td>Title Offer</td>
-            <td>$4.95	</td>
-            <td><button type="button" class="btn rounded-pill btn-primary">Primary</button></td>
-          </tr>
-        </tbody>
-      </table>
+      <br>
+      {{-- @if(isset($filteredAppointments))
+      <h2>Filtered Appointments</h2>
+      @foreach ($filteredAppointments as $appointment)
+      <p>{{ $appointment->id }}</p>
+      @endforeach
+      @endif --}}
+      <div class="table-responsive text-nowrap">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Id</th>
+              <th>Name Patient</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Offer</th>
+              <th>Price</th>
+              <th>Date</th>
+              <th>status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{-- @if(isset($appointments)&& count($appointments) > 0)
+              @foreach ($appointments as $item)
+                <tr>
+                  <td class="  control" tabindex="0"></td>
+                  <td><span>#{{$item["id"]}}</span></td>
+                  <td>
+                    <div class="d-flex justify-content-start align-items-center user-name">
+                      <div class="avatar-wrapper">
+                        <div class="avatar avatar-sm me-3">
+                          <span
+                            class="avatar-initial rounded-circle bg-label-success">{{substr($item["Full_Name"], 0, 2);}}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <span class="fw-medium">{{$item["Full_Name"]}}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span>{{$item["email"]}}</span>
+                  </td>
+                  <td>
+                    <span>{{$item["phone"]}}</span>
+                  </td>
+                  <td>
+                    <span>
+                      @if ($item->offer)
+                      {{ $item->offer->Name }}
+                      @else
+                      No Offer
+                      @endif
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      @if ($item->offer)
+                      {{ $item->offer->Cost }}$
+                      @else
+                      No Offer
+                      @endif
+                    </span>
+                  </td>
+                  <td>
+                    <span>{{$item["Appointment_Date"]}}</span>
+                  </td>
+                  <td>
+                    <span class="badge  bg-label-info me-1">
+                      @if ($item->offer)
+                      {{ $item->offer->Localization }}
+                      @else
+                      No Offer
+                      @endif
+                    </span>
+                  </td>
+                </tr>
+              @endforeach
+            @endif --}}
+            @if(isset($filteredAppointments) && count($filteredAppointments) > 0)
+              @foreach ($filteredAppointments as $item)
+                <tr>
+                  <td class="  control" tabindex="0"></td>
+                  <td><span>#{{$item["id"]}}</span></td>
+                  <td>
+                    <div class="d-flex justify-content-start align-items-center user-name">
+                      <div class="avatar-wrapper">
+                        <div class="avatar avatar-sm me-3">
+                          <span
+                            class="avatar-initial rounded-circle bg-label-success">{{substr($item["Full_Name"], 0, 2);}}</span>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <span class="fw-medium">{{$item["Full_Name"]}}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span>{{$item["email"]}}</span>
+                  </td>
+                  <td>
+                    <span>{{$item["phone"]}}</span>
+                  </td>
+                  <td>
+                    <span>
+                      @if ($item->offer)
+                      {{ $item->offer->Name }}
+                      @else
+                      No Offer
+                      @endif
+                    </span>
+                  </td>
+                  <td>
+                    <span>
+                      @if ($item->offer)
+                      {{ $item->offer->Cost }}$
+                      @else
+                      No Offer
+                      @endif
+                    </span>
+                  </td>
+                  <td>
+                    <span>{{$item["Appointment_Date"]}}</span>
+                  </td>
+                  <td>
+                    <span class="badge  bg-label-info me-1">
+                      @if ($item->offer)
+                      {{ $item->offer->Localization }}
+                      @else
+                      No Offer
+                      @endif
+                    </span>
+                  </td>
+                </tr>
+              @endforeach
+            @endif
+          </tbody>
+        </table>
+      </div>
     </div>
+    <!-- Offcanvas to add new user -->
+
   </div>
+
+</div>
 @endsection

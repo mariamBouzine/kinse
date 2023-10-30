@@ -22,6 +22,8 @@ Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboar
 Route::get('/dashboard/crm', $controller_path . '\dashboard\Crm@index')->name('dashboard-crm');
 //Appointment
 Route::get('/appointment/appointment-manage', $controller_path . '\appointment\appointmentManage@index')->name('appointment-manage');
+Route::post('/appointment/appointment-manage', $controller_path . '\appointment\appointmentManage@filterByDate')->name('appointments.filter');
+
 //patients
 Route::get('/patients/patients-manage', $controller_path . '\patients\patientsManage@index')->name('patients-manage');
 //wallet

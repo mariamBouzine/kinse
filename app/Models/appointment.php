@@ -13,4 +13,5 @@ class appointment extends Model
     {
         return $this->belongsTo(offer::class, 'Offer_id');
     }
+    
 }

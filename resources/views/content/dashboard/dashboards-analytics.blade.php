@@ -49,10 +49,13 @@
                   aria-expanded="false">
                   <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
+                  <a class="dropdown-item" href="/appointment/appointment-manage">View More</a>
+                </div>
               </div>
             </div>
             <span>Today's Appointments</span>
-            <h3 class="card-title text-nowrap mb-1">130</h3>
+            <h3 class="card-title text-nowrap mb-1">{{ $appointmentsToday }}</h3>
           </div>
         </div>
       </div>
@@ -68,10 +71,13 @@
                   aria-expanded="false">
                   <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
+                  <a class="dropdown-item" href="/patients/patients-manage">View More</a>
+                </div>
               </div>
             </div>
             <span>Today's Patients</span>
-            <h3 class="card-title text-nowrap mb-1">89</h3>
+            <h3 class="card-title text-nowrap mb-1">{{ $PatientsToday }}</h3>
           </div>
         </div>
       </div>
@@ -87,6 +93,9 @@
                   aria-expanded="false">
                   <i class="bx bx-dots-vertical-rounded"></i>
                 </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
+                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                </div>
               </div>
             </div>
             <span>Clinic Earning</span>
