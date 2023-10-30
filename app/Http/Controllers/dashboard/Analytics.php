@@ -17,7 +17,7 @@ class Analytics extends Controller
     $appointmentsToday = Appointment::whereDate('Appointment_Date', $today)->count();
     $PatientsToday = patient::whereDate('created_at', $today)->count();
     $staffs = staff::orderBy("created_at", "asc")->paginate(5);
-    $appointment = Appointment::orderBy("created_at", "asc")->with('offer')->get();
+    $appointment =  Appointment::whereDate('Appointment_Date', $today)->with('offer')->get();
     // $appointment = Appointment::with('offer')->get();
     return view('content.dashboard.dashboards-analytics', ['staffs' => $staffs, 'appointment' => $appointment,'appointmentsToday'=>$appointmentsToday,'PatientsToday'=>$PatientsToday]);
   }

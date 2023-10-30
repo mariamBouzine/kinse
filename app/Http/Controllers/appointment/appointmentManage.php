@@ -18,10 +18,14 @@ class appointmentManage extends Controller
   }
   public function filterByDate(Request $request)
   {
-      $start = Carbon::parse($request->start_date)->startOfDay();
-      $end = Carbon::parse($request->end_date)->endOfDay();
-      $filteredAppointments = Appointment::whereBetween('appointment_date', [$start, $end])->get();
-      $appointments = Appointment::all(); 
-      return view('content.appointment.appointment-manage', compact('appointments', 'filteredAppointments'));
+    $start = Carbon::parse($request->start_date)->startOfDay();
+    $end = Carbon::parse($request->end_date)->endOfDay();
+    $filteredAppointments = Appointment::whereBetween('appointment_date', [$start, $end])->get();
+    $appointments = Appointment::all();
+    return view('content.appointment.appointment-manage', compact('appointments', 'filteredAppointments'));
   }
+  /**
+   * Show the form for editing the specified resource.
+   */
+ 
 }

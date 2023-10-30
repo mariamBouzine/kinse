@@ -135,13 +135,13 @@
                 class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                 <div class="dt-buttons">
                   <a href="/appointment/appointment-manage">show all</a>
-      
+
                 </div>
               </div>
             </div>
           </div>
           <br>
-          <table class="table table-striped">
+          <table class="table table-striped table-wrapper-scroll-y" style="height: 20px">
             <thead>
               <tr>
                 <th></th>
