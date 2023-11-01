@@ -5,6 +5,7 @@ namespace App\Http\Controllers\appointment;
 use App\Http\Controllers\Controller;
 use App\Models\appointment;
 use App\Models\offer;
+use App\Models\staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class appointmentManage extends Controller
   {
     $appointments = appointment::all();
     $offers = offer::all();
-    return view('content.appointment.appointment-manage', ['appointments' => $appointments, "offers" => $offers]);
+    $staffs = staff::all();
+    return view('content.appointment.appointment-manage', ['appointments' => $appointments, 'offers' => $offers, 'staffs' => $staffs]);
   }
   public function filterByDate(Request $request)
   {

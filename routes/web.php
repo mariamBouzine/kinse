@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 $controller_path = 'App\Http\Controllers';
 
 // Main Page Route
-Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
+Route::get('/', $controller_path . '\authentications\LoginBasic@index')->name('dashboard-analytics');
+Route::get('/dashboard/dashboards-analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 Route::get('/dashboard/crm', $controller_path . '\dashboard\Crm@index')->name('dashboard-crm');
 //Appointment
 Route::get('/appointment/appointment-manage', $controller_path . '\appointment\appointmentManage@index')->name('appointment-manage');
@@ -34,6 +35,7 @@ Route::get('/offer/offer-manage/restore/{id}',  $controller_path .'\service\serv
 Route::post('/service',  $controller_path .'\service\serviceManage@store');
 Route::get('/service/service-manage/{id}', $controller_path .'\service\serviceManage@edit')->name('service.edit');
 Route::get('/service/service-manage', $controller_path . '\service\serviceManage@index')->name('pages-service-service-manage');
+Route::put('/service/service-manage/{id}', $controller_path . '\service\serviceManage@update')->name('service.update');
 // Route::resource('/service','serviceManage');
 //offer
 Route::get('/service/offer-manage', $controller_path . '\service\offerManage@index')->name('pages-service-offer-manage');
@@ -44,9 +46,12 @@ Route::get('/service/service-manage/{id}/edit',  $controller_path .'\service\off
 Route::put('/service/service-manage/update/{id}', $controller_path .'\service\offerManage@update')->name('offer.update');
 
 //staff
-Route::delete('/staff/Staff-manage/{id}', $controller_path .'\staff\staffManage@destroy')->name('staff.destroy');
-Route::post('/staff',  $controller_path .'\staff\staffManage@store');
 Route::get('/staff/Staff-manage', $controller_path . '\staff\staffManage@index')->name('Staff-manage-Staff');
+Route::post('/staff',  $controller_path .'\staff\staffManage@store')->name('staff.index');
+Route::get('/staff/Staff-manage/{id}/restore',  $controller_path .'\staff\staffManage@restore')->name('staff.restore');
+Route::delete('/staff/Staff-manage/{id}/destroystaff', $controller_path .'\staff\staffManage@destroy')->name('staff.destroy');
+Route::put('/staff/Staff-manage/update/{id}', $controller_path .'\staff\staffManage@update')->name('staff.update');
+
 // layout
 Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');
 Route::get('/layouts/without-navbar', $controller_path . '\layouts\WithoutNavbar@index')->name('layouts-without-navbar');

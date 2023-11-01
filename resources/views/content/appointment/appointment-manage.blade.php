@@ -52,7 +52,7 @@
       </div>
       <br>
       <div class="table-responsive text-nowrap">
-        <table class="table table-striped " >
+        <table class="table table-striped ">
           <thead>
             <tr>
               <th></th>
@@ -130,10 +130,12 @@
                     <i class="bx bx-edit"></i>
                   </button>
                 </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddOffer{{$item->id}}" aria-labelledby="offcanvasAddOfferLabel">
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddOffer{{$item->id}}"
+                  aria-labelledby="offcanvasAddOfferLabel">
                   <div class="offcanvas-header">
                     <h5 id="offcanvasAddOfferLabel" class="offcanvas-title">Add Offer</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                      aria-label="Close"></button>
                   </div>
                   <div class="offcanvas-body mx-0 flex-grow-0">
                     @if($errors->any())
@@ -147,13 +149,18 @@
                     <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm"
                       novalidate="novalidate" method="POST" action="/offer">
                       @csrf
-                      <span>{{$item->id}}</span>
                       {{-- <input type="hidden" name="id" id="user_id"> --}}
                       <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-NameOffer">Name Offer</label>
-                        <input type="text" class="form-control" id="add-NameOffer" placeholder="Enter Your Offer" name="Name" wire:model="Full_Name"
-                          aria-label="">
-                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                        <div class="position-relative">
+                          <select id="Type" name="service_id" class="select2 form-select select2-hidden-accessible"
+                            data-select2-id="service_id" tabindex="-1" aria-hidden="true">
+                            <option value="" data-select2-id="2">Select</option>
+                            {{-- @foreach ($staffs as $staff)
+                            <option value="">
+                              {{ $staff->First_Name }} {{ $staff->Last_Name }} 
+                            </option>
+                            @endforeach --}}
+                          </select>
                         </div>
                       </div>
                       <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
@@ -170,7 +177,7 @@
       </div>
     </div>
     <!-- Offcanvas to add new user -->
-   
+
   </div>
 
 </div>

@@ -9,9 +9,10 @@ class service extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    public $timestamps = false;
+    public $timestamps = true;
     public function offer()
     {
         return $this->hasMany(offer::class);
     }
+    
 }

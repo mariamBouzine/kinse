@@ -9,7 +9,7 @@ class offer extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['staff_id', 'service_id'];
+    protected $fillable = ['staff_id','Service_Name','Type_Service', 'service_id'];
     public function service()
     {
         return $this->belongsTo(service::class);

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\offer;
 use App\Models\staff;
 use Illuminate\Http\Request;
 
@@ -70,9 +71,16 @@ class staffManage extends Controller
      * @param  \App\Models\staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, staff $staff)
+    public function update(Request $request,  $staff)
     {
-        //
+      $staff = staff::find($staff);
+      $staff->First_Name = $request->input('First_Name');
+      $staff->Last_Name = $request->input('Last_Name');
+      $staff->Phone = $request->input('Phone');
+      $staff->Email = $request->input('Email');
+      $staff->Specialization = $request->input('Specialization');
+      $staff->save();
+      return Redirect("/staff/Staff-manage");
     }
 
     /**
@@ -83,8 +91,23 @@ class staffManage extends Controller
      */
     public function destroy(staff $id)
     {
+        // $id->offer()->delete();
         $id->delete();
         return redirect('/staff/Staff-manage')
-            ->with('success', 'staff deleted successfully');
+            ->with('message', 'staff deleted successfully. <a href="' . route('staff.restore', ['id' => $id->id]) . '">Whoops, Undo</a>');
+    }
+    public function restore(int $id_staff)
+    {
+      $staff = staff::onlyTrashed()->find($id_staff);
+        // $offer = offer::onlyTrashed()->find($id_staff);
+      if ($staff && $staff->withTrashed()) {
+        // $offer->restore();
+        $staff->restore();
+        return redirect('/staff/Staff-manage')
+        ->with('success', 'staff restored successfully');
+      }else{
+        return redirect('/staff/Staff-manage')->with('error', 'Staff not found or already restored');
+      }
+      
     }
 }

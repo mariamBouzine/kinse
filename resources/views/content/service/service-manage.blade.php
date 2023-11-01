@@ -114,7 +114,7 @@
                                 <div class="offcanvas-body mx-0 flex-grow-0">
                                     <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework"
                                         id="editserviceForm" novalidate="novalidate"
-                                        action="{{ route('service.edit',['id' => $item->id]) }}" method="POST">
+                                        action="{{ route('service.update',['id' => $item->id]) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="id" id="id">
@@ -158,7 +158,6 @@
                                         </div>
                                         <input type="submit" class="btn btn-primary me-sm-3 me-1 data-submit"
                                             value="submit">
-                                        {{-- <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit"  value="submit">Submit</button> --}}
                                         <button type="reset" class="btn btn-label-secondary"
                                             data-bs-dismiss="offcanvas">Cancel</button>
                                         <input type="hidden">
@@ -172,7 +171,7 @@
             </table>
 
         </div>
-        <!-- Offcanvas to add new user -->
+        <!-- Offcanvas to add new service -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser"
             aria-labelledby="offcanvasAddUserLabel">
             <div class="offcanvas-header">
@@ -221,7 +220,6 @@
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" value="submit">
-                    {{-- <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit"  value="submit">Submit</button> --}}
                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                     <input type="hidden">
                 </form>

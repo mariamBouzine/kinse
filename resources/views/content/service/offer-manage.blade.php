@@ -63,7 +63,7 @@
                 </div>
             </div>
             <br>
-            <div class="table-responsive text-nowrap">
+            {{-- <div class="table-responsive"> --}}
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -85,9 +85,25 @@
                         <tr>
                             <td>#<span>{{$item["id"]}}</span></td>
                             <td>{{$item["Name"]}}</td>
-                            <td>{{$item->service->Service_Name}}</td>
-                            <td>{{$item->service->Type_Service}}</td>
-                            <td>{{$item->staff->First_Name}} {{$item->staff->Last_Name}}</td>
+                            <td>@if ($item->service) 
+                                {{$item->service->Service_Name}}
+                                @else
+                                <span style="color: red">Please select an service</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($item->service) 
+                                {{$item->service->Type_Service}}
+                                @else
+                                <span style="color: red">Please select an Typeservice</span> 
+                                @endif         
+                            </td>
+                            <td>@if ($item->staff) 
+                                {{$item->staff->First_Name}} {{$item->staff->Last_Name}}
+                                @else
+                                <span style="color: red">Please select an staff</span>
+                                @endif
+                            </td>
                             <td>{{$item["Duration"]}} min</td>
                             <td>{{$item["Cost"]}}$</td>
                             <td>{{$item["Capacity"]}}</td>
@@ -118,8 +134,7 @@
                                     </div>
                                     <div class="offcanvas-body mx-0 flex-grow-0">
                                         <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework"
-                                            id="addNewUserForm" novalidate="novalidate" method="POST" action="">
-                                            {{-- {{ route('offers.update', ['id' => $offers->id]) }} --}}
+                                            id="addNewUserForm" novalidate="novalidate" method="POST" action="{{ route('offer.update',['id' => $item->id]) }}">
                                             @csrf
                                             @method('PUT')
                                             <input type="hidden" name="id" id="user_id">
@@ -130,6 +145,71 @@
                                                     placeholder="Enter Your Offer" name="Name" aria-label="">
                                                 <div
                                                     class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Type">Service</label>
+                                                <div class="position-relative">
+                                                    <select id="Type" name="service_id"
+                                                        class="select2 form-select select2-hidden-accessible"
+                                                        data-select2-id="service_id" tabindex="-1" aria-hidden="true">
+                                                        <option value="" data-select2-id="2">Select</option>
+                                                        @foreach ($services as $service)
+                                                        @if($service->id==$item->service_id)
+                                                        <option value="{{ $service->id }}" selected>
+                                                            {{ $service->Service_Name }}
+                                                            ({{ $service->Type_Service }})</option>
+                                                        @else
+                                                        <option value="{{$service->id}}">{{$service->Service_Name}}
+                                                            ({{ $service->Type_Service }})</option>
+                                                        @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Type">Coach</label>
+                                                <div class="position-relative">
+                                                    <select id="Type" name="staff_id"
+                                                        class="select2 form-select select2-hidden-accessible"
+                                                        data-select2-id="Type" tabindex="-1" aria-hidden="true">
+                                                        <option value="" data-select2-id="2">Select</option>
+                                                        @foreach ($staffs as $staff)
+                                                        @if($staff->id==$item->staff_id)
+                                                        <option value="{{$staff->id}}" selected>{{$staff->First_Name}} {{$staff->Last_Name}}</option>
+                                                        @else
+                                                        <option value="{{$staff->id}}">{{$staff->First_Name}} {{$staff->Last_Name}}</option>
+                                                        @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 fv-plugins-icon-container">
+                                                <label class="form-label" for="add-Description">Description </label>
+                                                <textarea type="text" class="form-control" id="add-Description"
+                                                    placeholder="Enter Your Description" name="Description"
+                                                    aria-label="">{{$item!= null ? $item->Description : "" }}</textarea>
+                                                <div
+                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                                </div>
+                                            </div> 
+                                            <div class="mb-3">
+                                                <label class="form-label" for="type">Localization</label>
+                                                <div class="type">
+                                                    <select id="Localization" name="Localization"
+                                                        class="select2 form-select select2-hidden-accessible"
+                                                        data-select2-id="Type" tabindex="-1" aria-hidden="true">
+                                                        <option value="" data-select2-id="2">Select</option>
+                                                        <option value="Online"
+                                                            {{ $item->Localization == "Online" ? 'selected' : '' }}>
+                                                            Online</option>
+                                                        <option value="Clinic"
+                                                            {{ $item->Localization == "Clinic" ? 'selected' : '' }}>
+                                                            Clinic</option>
+                                                        <option value="Home"
+                                                            {{ $item->Localization == "Home" ? 'selected' : '' }}>Home
+                                                        </option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="mb-3 fv-plugins-icon-container">
@@ -159,72 +239,6 @@
                                                     class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                                 </div>
                                             </div>
-                                            <div class="mb-3 fv-plugins-icon-container">
-                                                <label class="form-label" for="add-Description">Description </label>
-                                                <textarea type="text" class="form-control" id="add-Description"
-                                                    placeholder="Enter Your Description" name="Description"
-                                                    aria-label="">{{$item!= null ? $item->Name : "" }}</textarea>
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Type">Service</label>
-                                                <div class="position-relative">
-                                                    <select id="Type" name="service_id"
-                                                        class="select2 form-select select2-hidden-accessible"
-                                                        data-select2-id="service_id" tabindex="-1" aria-hidden="true">
-                                                        <option value="" data-select2-id="2">Select</option>
-                                                        @foreach ($services as $service)
-                                                        @if($service->id==$item->service_id)
-                                                        <option value="{{ $service->id }}" selected>
-                                                            {{ $service->Service_Name }}
-                                                            ({{ $service->Type_Service }})</option>
-                                                        @else
-                                                        <option value="{{$service->id}}">{{$service->Service_Name}}
-                                                            ({{ $service->Type_Service }})</option>
-                                                        @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="type">Localization</label>
-                                                <div class="type">
-                                                    <select id="Localization" name="Localization"
-                                                        class="select2 form-select select2-hidden-accessible"
-                                                        data-select2-id="Type" tabindex="-1" aria-hidden="true">
-                                                        <option value="" data-select2-id="2">Select</option>
-                                                        <option value="Online"
-                                                            {{ $item->Localization == "Online" ? 'selected' : '' }}>
-                                                            Online</option>
-                                                        <option value="Clinic"
-                                                            {{ $item->Localization == "Clinic" ? 'selected' : '' }}>
-                                                            Clinic</option>
-                                                        <option value="Home"
-                                                            {{ $item->Localization == "Home" ? 'selected' : '' }}>Home
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Type">Coach</label>
-                                                <div class="position-relative">
-                                                    <select id="Type" name="staff_id"
-                                                        class="select2 form-select select2-hidden-accessible"
-                                                        data-select2-id="Type" tabindex="-1" aria-hidden="true">
-                                                        <option value="" data-select2-id="2">Select</option>
-                                                        @foreach ($staffs as $staff)
-                                                        @if($staff->id==$item->staff_id)
-                                                        <option value="{{$staff->id}}" selected>{{$staff->First_Name}} {{$staff->Last_Name}}</option>
-                                                        @else
-                                                        <option value="{{$staff->id}}">{{$staff->First_Name}} {{$staff->Last_Name}}</option>
-                                                        @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
                                             <button type="submit"
                                                 class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                             <button type="reset" class="btn btn-label-secondary"
@@ -238,7 +252,7 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
+            {{-- </div> --}}
         </div>
         <!-- Offcanvas to add new user -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddOffer"

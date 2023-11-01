@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patients', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->string("First_Name");
             $table->string("Last_Name");
-            $table->date("Date_of_Birth");
-            $table->string("Gender");
-            $table->string("Address");
+            $table->integer("Phone");
             $table->string("Email");
+            $table->string("Specialization");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patients');
+        Schema::dropIfExists('staff');
     }
 };
