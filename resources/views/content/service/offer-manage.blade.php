@@ -355,9 +355,9 @@
                         </div>
                     </div>
                     <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-Capacity">Capacity</label>
+                        <label class="form-label" for="add-Capacity">Duration Type</label>
                         <div class="position-relative">
-                            <select id="Type" name="staff_id"
+                            <select id="Type" name="Duration_Type"
                                 class="select2 form-select select2-hidden-accessible"
                                 data-select2-id="Type" tabindex="-1" aria-hidden="true">
                                 <option value="" data-select2-id="2">Select</option>

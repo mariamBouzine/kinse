@@ -29,16 +29,16 @@ class offerManage extends Controller
    */
   public function store(Request $request)
   {
-    $request->validate([
-      'Name' => 'required',
-      'service_id' => 'required',
-      'staff_id' => 'required',
-      'Duration' => 'required',
-      'Cost' => 'required',
-      'Class_Type' => 'required',
-      'Description' => 'required',
-      'Duration_Type' => 'required',
-    ]);
+    // $request->validate([
+    //   'Name' => 'required',
+    //   'service_id' => 'required',
+    //   'staff_id' => 'required',
+    //   'Duration' => 'required',
+    //   'Cost' => 'required',
+    //   'Class_Type' => 'required',
+    //   'Description' => 'required',
+    //   'Duration_Type' => 'required',
+    // ]);
 
     $offer = new offer();
     $offer->Name = $request->input('Name');
