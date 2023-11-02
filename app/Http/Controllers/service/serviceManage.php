@@ -5,10 +5,10 @@ namespace App\Http\Controllers\service;
 use App\Http\Controllers\Controller;
 use App\Models\service;
 use Illuminate\Http\Request;
-use App\Models\offer;
+
 class serviceManage extends Controller
 {
-  /**
+   /**
    * Display a listing of the resource.
    */
   public function index()

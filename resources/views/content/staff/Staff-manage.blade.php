@@ -74,24 +74,16 @@
                 </div>
             </div>
             <br>
-            <table class="table table-striped" id="DataTables_Table_0"
-                aria-describedby="DataTables_Table_0_info" style="width: 100%;">
+            <table class="table table-striped" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info"
+                style="width: 100%;">
                 <thead>
                     <tr>
-                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1"
-                            style="width: 0px; display: none;" aria-label=""></th>
-                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Id">Id</th>
-                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
-                            colspan="1" aria-sort="descending" aria-label="Name: activate to sort column ascending">Name
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            aria-label="Phone: activate to sort column ascending">Phone</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            aria-label="Email: activate to sort column ascending">Email</th>
-                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                            aria-label="Specialization: activate to sort column ascending">Specialization </th>
-                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 140px;" aria-label="Actions">
-                            Actions</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Specialization </th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -144,20 +136,22 @@
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditstaff{{ $item->id }}"
                                 aria-labelledby="offcanvasEditlabel">
                                 <div class="offcanvas-header">
-                                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title"> Edit Staff 
+                                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title"> Edit Staff
                                     </h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body mx-0 flex-grow-0">
                                     <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework"
-                                        id="editserviceForm" novalidate="novalidate" action="{{ route('staff.update', ['id' => $item->id]) }}" method="POST">
+                                        id="editserviceForm" novalidate="novalidate"
+                                        action="{{ route('staff.update', ['id' => $item->id]) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="id" id="user_id">
                                         <div class="mb-3 fv-plugins-icon-container">
                                             <label class="form-label" for="add-FirstName">First Name</label>
-                                            <input type="text" class="form-control" id="add-FirstName" value="{{$item!= null ? $item->First_Name : "" }}"
+                                            <input type="text" class="form-control" id="add-FirstName"
+                                                value="{{$item!= null ? $item->First_Name : "" }}"
                                                 placeholder="Enter Your First Name" name="First_Name" aria-label="">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
@@ -165,7 +159,8 @@
                                         </div>
                                         <div class="mb-3 fv-plugins-icon-container">
                                             <label class="form-label" for="add-LastName">Last Name</label>
-                                            <input type="text" class="form-control" id="add-LastName" value="{{$item!= null ? $item->Last_Name : "" }}"
+                                            <input type="text" class="form-control" id="add-LastName"
+                                                value="{{$item!= null ? $item->Last_Name : "" }}"
                                                 placeholder="Enter Your Last Name" name="Last_Name" aria-label="">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
@@ -173,7 +168,8 @@
                                         </div>
                                         <div class="mb-3 fv-plugins-icon-container">
                                             <label class="form-label" for="add-Phone">Phone</label>
-                                            <input type="number" min="0" class="form-control" id="add-Phone"  value="{{$item!= null ? $item->Phone : "" }}"
+                                            <input type="number" min="0" class="form-control" id="add-Phone"
+                                                value="{{$item!= null ? $item->Phone : "" }}"
                                                 placeholder="Enter Your Number Phone" name="Phone" aria-label="">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
@@ -181,7 +177,8 @@
                                         </div>
                                         <div class="mb-3 fv-plugins-icon-container">
                                             <label class="form-label" for="add-Email">Email</label>
-                                            <input type="email" class="form-control" id="add-Email" value="{{$item!= null ? $item->Email : "" }}"
+                                            <input type="email" class="form-control" id="add-Email"
+                                                value="{{$item!= null ? $item->Email : "" }}"
                                                 placeholder="Enter Your Email" name="Email" aria-label="">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
@@ -190,8 +187,8 @@
                                         <div class="mb-3 fv-plugins-icon-container">
                                             <label class="form-label" for="add-Specialization">Specialization</label>
                                             <input type="text" class="form-control" id="add-Specialization"
-                                                placeholder="Enter Your Specialization" name="Specialization" value="{{$item!= null ? $item->Specialization : "" }}"
-                                                aria-label="">
+                                                placeholder="Enter Your Specialization" name="Specialization"
+                                                value="{{$item!= null ? $item->Specialization : "" }}" aria-label="">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                             </div>

@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string("First_Name");
-            $table->string("Last_Name");
-            $table->integer("Phone");
-            $table->string("Email");
-            $table->string("Specialization");
+            $table->string('First_Name');
+            $table->string('Last_Name');
+            $table->string('Phone');
+            $table->string('Email')->unique();
+            $table->string('password');
+            $table->string('Specialization');
+            $table->enum('Status', ['Accepted', 'Pending', 'Rejected'])->default('Pending'); 
             $table->timestamps();
             $table->softDeletes();
         });

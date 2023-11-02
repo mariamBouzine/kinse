@@ -64,194 +64,201 @@
             </div>
             <br>
             {{-- <div class="table-responsive"> --}}
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name Offer</th>
-                            <th>Name Service</th>
-                            <th>Type Service</th>
-                            <th>Name Coach</th>
-                            <th>Duration</th>
-                            <th>Cost</th>
-                            <th>Capacity</th>
-                            <th>Localization</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        @foreach ($offers as $item)
-                        <tr>
-                            <td>#<span>{{$item["id"]}}</span></td>
-                            <td>{{$item["Name"]}}</td>
-                            <td>@if ($item->service) 
-                                {{$item->service->Service_Name}}
-                                @else
-                                <span style="color: red">Please select an service</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($item->service) 
-                                {{$item->service->Type_Service}}
-                                @else
-                                <span style="color: red">Please select an Typeservice</span> 
-                                @endif         
-                            </td>
-                            <td>@if ($item->staff) 
-                                {{$item->staff->First_Name}} {{$item->staff->Last_Name}}
-                                @else
-                                <span style="color: red">Please select an staff</span>
-                                @endif
-                            </td>
-                            <td>{{$item["Duration"]}} min</td>
-                            <td>{{$item["Cost"]}}$</td>
-                            <td>{{$item["Capacity"]}}</td>
-                            <td>{{$item["Localization"]}}</td>
-                            <td>{{$item["Description"]}}</td>
-                            <td>
-                                <div class="d-inline-block text-nowrap">
-                                    <button class="btn btn-sm btn-icon edit-record" tabindex="0"
-                                        aria-controls="DataTables_Table_0" data-offer-id="" type="button"
-                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditOffer{{ $item->id }}">
-                                        <i class="bx bx-edit"></i>
-                                    </button>
-                                    <form action="{{ route('offer.destroy',['id' => $item->id]) }}" method="POST">
-                                        {{-- <a href="" class="btn btn-sm btn-icon edit-record" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit"><i class="bx bx-edit"></i></a> --}}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name Offer</th>
+                        <th>Name Service</th>
+                        <th>Type Service</th>
+                        <th>Name Coach</th>
+                        <th>Duration</th>
+                        <th>Cost</th>
+                        <th>Duration Type</th>
+                        <th>Localization</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach ($offers as $item)
+                    <tr>
+                        <td>#<span>{{$item["id"]}}</span></td>
+                        <td>{{$item["Name"]}}</td>
+                        <td>@if ($item->service)
+                            {{$item->service->Service_Name}}
+                            @else
+                            <span style="color: red">Please select an service</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($item->service)
+                            {{$item->service->Type_Service}}
+                            @else
+                            <span style="color: red">Please select an Typeservice</span>
+                            @endif
+                        </td>
+                        <td>@if ($item->staff)
+                            {{$item->staff->First_Name}} {{$item->staff->Last_Name}}
+                            @else
+                            <span style="color: red">Please select an staff</span>
+                            @endif
+                        </td>
+                        <td>{{$item["Class_Schedule"]}} min</td>
+                        <td>{{$item["Cost"]}}$</td>
+                        <td>{{$item["Duration_Type"]}}</td>
+                        <td>{{$item["Class_Type"]}}</td>
+                        <td>{{$item["Description"]}}</td>
+                        <td>
+                            <div class="d-inline-block text-nowrap">
+                                <button class="btn btn-sm btn-icon edit-record" tabindex="0"
+                                    aria-controls="DataTables_Table_0" data-offer-id="" type="button"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasEditOffer{{ $item->id }}">
+                                    <i class="bx bx-edit"></i>
+                                </button>
+                                <form action="{{ route('offer.destroy',['id' => $item->id]) }}" method="POST">
+                                    {{-- <a href="" class="btn btn-sm btn-icon edit-record" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEdit"><i class="bx bx-edit"></i></a> --}}
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="return confirm('Are you sure?')" type="submit"
+                                        class="btn btn-sm btn-icon delete-record" data-id="58"><i
+                                            class='bx bx-trash'></i></button>
+                                </form>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditOffer{{ $item->id }}"
+                                aria-labelledby="offcanvasEditOfferLabel">
+                                <div class="offcanvas-header">
+                                    <h5 id="offcanvasEditOfferLabel" class="offcanvas-title">Edit Offer</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body mx-0 flex-grow-0">
+                                    <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework"
+                                        id="addNewUserForm" novalidate="novalidate" method="POST"
+                                        action="{{ route('offer.update',['id' => $item->id]) }}">
                                         @csrf
-                                        @method('DELETE')
-                                        <button onclick="return confirm('Are you sure?')" type="submit"
-                                            class="btn btn-sm btn-icon delete-record" data-id="58"><i
-                                                class='bx bx-trash'></i></button>
+                                        @method('PUT')
+                                        <input type="hidden" name="id" id="user_id">
+                                        <div class="mb-3 fv-plugins-icon-container">
+                                            <label class="form-label" for="add-NameOffer">Name Offer</label>
+                                            <input type="text" class="form-control" id="add-NameOffer"
+                                                value="{{$item!= null ? $item->Name : "" }}"
+                                                placeholder="Enter Your Offer" name="Name" aria-label="">
+                                            <div
+                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Type">Service</label>
+                                            <div class="position-relative">
+                                                <select id="Type" name="service_id"
+                                                    class="select2 form-select select2-hidden-accessible"
+                                                    data-select2-id="service_id" tabindex="-1" aria-hidden="true">
+                                                    <option value="" data-select2-id="2">Select</option>
+                                                    @foreach ($services as $service)
+                                                    @if($service->id==$item->service_id)
+                                                    <option value="{{ $service->id }}" selected>
+                                                        {{ $service->Service_Name }}
+                                                        ({{ $service->Type_Service }})</option>
+                                                    @else
+                                                    <option value="{{$service->id}}">{{$service->Service_Name}}
+                                                        ({{ $service->Type_Service }})</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Type">Coach</label>
+                                            <div class="position-relative">
+                                                <select id="Type" name="staff_id"
+                                                    class="select2 form-select select2-hidden-accessible"
+                                                    data-select2-id="Type" tabindex="-1" aria-hidden="true">
+                                                    <option value="" data-select2-id="2">Select</option>
+                                                    @foreach ($staffs as $staff)
+                                                    @if($staff->id==$item->staff_id)
+                                                    <option value="{{$staff->id}}" selected>{{$staff->First_Name}}
+                                                        {{$staff->Last_Name}}</option>
+                                                    @else
+                                                    <option value="{{$staff->id}}">{{$staff->First_Name}}
+                                                        {{$staff->Last_Name}}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 fv-plugins-icon-container">
+                                            <label class="form-label" for="add-Description">Description </label>
+                                            <textarea type="text" class="form-control" id="add-Description"
+                                                placeholder="Enter Your Description" name="Description"
+                                                aria-label="">{{$item!= null ? $item->Description : "" }}</textarea>
+                                            <div
+                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="type">Localization</label>
+                                            <div class="type">
+                                                <select id="Localization" name="Class_Type"
+                                                    class="select2 form-select select2-hidden-accessible"
+                                                    data-select2-id="Type" tabindex="-1" aria-hidden="true">
+                                                    <option value="" data-select2-id="2">Select</option>
+                                                    @foreach(['Online', 'Clinic', 'Home'] as $option)
+                                                    <option value="{{ $option }}"
+                                                        {{ $item->Class_Type == $option ? 'selected' : '' }}>
+                                                        {{ $option }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 fv-plugins-icon-container">
+                                            <label class="form-label" for="add-Capacity">Duration Type</label>
+                                            <div class="position-relative">
+                                                <select id="Type" name="Duration_Type"
+                                                    class="select2 form-select select2-hidden-accessible"
+                                                    data-select2-id="Type" tabindex="-1" aria-hidden="true">
+                                                    <option value="" data-select2-id="2">Select</option>
+                                                    @foreach(['Monthly', 'Daily', 'Yearly'] as $option)
+                                                    <option value="{{ $option }}"
+                                                        {{ $item->Duration_Type == $option ? 'selected' : '' }}>
+                                                        {{ $option }}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 fv-plugins-icon-container">
+                                            <label class="form-label" for="add-Duration">Duration</label>
+                                            <input type="text" class="form-control" id="add-Duration"
+                                                placeholder="Enter Your Duration (00:00:00)" name="Class_Schedule"
+                                                aria-label="" value="{{$item!= null ? $item->Class_Schedule : "" }}">
+                                            <div
+                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 fv-plugins-icon-container">
+                                            <label class="form-label" for="add-COST">Cost</label>
+                                            <input type="number" min="0" class="form-control" id="add-COST"
+                                                placeholder="Enter Your Cost" name="Cost"
+                                                value="{{$item!= null ? $item->Cost : "" }}">
+                                            <div
+                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <button type="submit"
+                                            class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                        <button type="reset" class="btn btn-label-secondary"
+                                            data-bs-dismiss="offcanvas">Cancel</button>
+                                        <input type="hidden">
                                     </form>
                                 </div>
-                                <div class="offcanvas offcanvas-end" tabindex="-1"
-                                    id="offcanvasEditOffer{{ $item->id }}" aria-labelledby="offcanvasEditOfferLabel">
-                                    <div class="offcanvas-header">
-                                        <h5 id="offcanvasEditOfferLabel" class="offcanvas-title">Edit Offer</h5>
-                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="offcanvas-body mx-0 flex-grow-0">
-                                        <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework"
-                                            id="addNewUserForm" novalidate="novalidate" method="POST" action="{{ route('offer.update',['id' => $item->id]) }}">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="id" id="user_id">
-                                            <div class="mb-3 fv-plugins-icon-container">
-                                                <label class="form-label" for="add-NameOffer">Name Offer</label>
-                                                <input type="text" class="form-control" id="add-NameOffer"
-                                                    value="{{$item!= null ? $item->Name : "" }}"
-                                                    placeholder="Enter Your Offer" name="Name" aria-label="">
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Type">Service</label>
-                                                <div class="position-relative">
-                                                    <select id="Type" name="service_id"
-                                                        class="select2 form-select select2-hidden-accessible"
-                                                        data-select2-id="service_id" tabindex="-1" aria-hidden="true">
-                                                        <option value="" data-select2-id="2">Select</option>
-                                                        @foreach ($services as $service)
-                                                        @if($service->id==$item->service_id)
-                                                        <option value="{{ $service->id }}" selected>
-                                                            {{ $service->Service_Name }}
-                                                            ({{ $service->Type_Service }})</option>
-                                                        @else
-                                                        <option value="{{$service->id}}">{{$service->Service_Name}}
-                                                            ({{ $service->Type_Service }})</option>
-                                                        @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="Type">Coach</label>
-                                                <div class="position-relative">
-                                                    <select id="Type" name="staff_id"
-                                                        class="select2 form-select select2-hidden-accessible"
-                                                        data-select2-id="Type" tabindex="-1" aria-hidden="true">
-                                                        <option value="" data-select2-id="2">Select</option>
-                                                        @foreach ($staffs as $staff)
-                                                        @if($staff->id==$item->staff_id)
-                                                        <option value="{{$staff->id}}" selected>{{$staff->First_Name}} {{$staff->Last_Name}}</option>
-                                                        @else
-                                                        <option value="{{$staff->id}}">{{$staff->First_Name}} {{$staff->Last_Name}}</option>
-                                                        @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 fv-plugins-icon-container">
-                                                <label class="form-label" for="add-Description">Description </label>
-                                                <textarea type="text" class="form-control" id="add-Description"
-                                                    placeholder="Enter Your Description" name="Description"
-                                                    aria-label="">{{$item!= null ? $item->Description : "" }}</textarea>
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div> 
-                                            <div class="mb-3">
-                                                <label class="form-label" for="type">Localization</label>
-                                                <div class="type">
-                                                    <select id="Localization" name="Localization"
-                                                        class="select2 form-select select2-hidden-accessible"
-                                                        data-select2-id="Type" tabindex="-1" aria-hidden="true">
-                                                        <option value="" data-select2-id="2">Select</option>
-                                                        <option value="Online"
-                                                            {{ $item->Localization == "Online" ? 'selected' : '' }}>
-                                                            Online</option>
-                                                        <option value="Clinic"
-                                                            {{ $item->Localization == "Clinic" ? 'selected' : '' }}>
-                                                            Clinic</option>
-                                                        <option value="Home"
-                                                            {{ $item->Localization == "Home" ? 'selected' : '' }}>Home
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 fv-plugins-icon-container">
-                                                <label class="form-label" for="add-Duration">Duration</label>
-                                                <input type="text" class="form-control" id="add-Duration"
-                                                    placeholder="Enter Your Duration (00:00:00)" name="Duration"
-                                                    aria-label="" value="{{$item!= null ? $item->Duration : "" }}">
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 fv-plugins-icon-container">
-                                                <label class="form-label" for="add-COST">Cost</label>
-                                                <input type="number" min="0" class="form-control" id="add-COST"
-                                                    placeholder="Enter Your Cost" name="Cost"
-                                                    value="{{$item!= null ? $item->Cost : "" }}">
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 fv-plugins-icon-container">
-                                                <label class="form-label" for="add-Capacity">Capacity</label>
-                                                <input type="number" min="0" class="form-control" id="add-Capacity"
-                                                    placeholder="Enter Your Capacity" name="Capacity"
-                                                    value="{{$item!= null ? $item->Capacity : "" }}">
-                                                <div
-                                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                                </div>
-                                            </div>
-                                            <button type="submit"
-                                                class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                            <button type="reset" class="btn btn-label-secondary"
-                                                data-bs-dismiss="offcanvas">Cancel</button>
-                                            <input type="hidden">
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
             {{-- </div> --}}
         </div>
         <!-- Offcanvas to add new user -->
@@ -319,20 +326,22 @@
                     <div class="mb-3">
                         <label class="form-label" for="type">Localization</label>
                         <div class="type">
-                            <select id="Localization" name="Localization"
+                            <select id="Localization" name="Class_Type"
                                 class="select2 form-select select2-hidden-accessible" data-select2-id="Type"
                                 tabindex="-1" aria-hidden="true">
                                 <option value="" data-select2-id="2">Select</option>
-                                <option value="Online">Online</option>
-                                <option value="Clinic">Clinic</option>
-                                <option value="Home">Home</option>
+                                @foreach(['Online', 'Clinic', 'Home'] as $option)
+                                <option value="{{ $option }}">
+                                    {{$option}}
+                                </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="mb-3 fv-plugins-icon-container">
                         <label class="form-label" for="add-Duration">Duration</label>
                         <input type="text" class="form-control" id="add-Duration"
-                            placeholder="Enter Your Duration (00:00:00)" name="Duration" aria-label="">
+                            placeholder="Enter Your Duration (00:00:00)" name="Class_Schedule" aria-label="">
                         <div
                             class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                         </div>
@@ -347,10 +356,17 @@
                     </div>
                     <div class="mb-3 fv-plugins-icon-container">
                         <label class="form-label" for="add-Capacity">Capacity</label>
-                        <input type="number" min="0" class="form-control" id="add-Capacity"
-                            placeholder="Enter Your Capacity" name="Capacity" aria-label="">
-                        <div
-                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                        <div class="position-relative">
+                            <select id="Type" name="staff_id"
+                                class="select2 form-select select2-hidden-accessible"
+                                data-select2-id="Type" tabindex="-1" aria-hidden="true">
+                                <option value="" data-select2-id="2">Select</option>
+                                @foreach(['Monthly', 'Daily', 'Yearly'] as $option)
+                                <option value="{{ $option }}">
+                                    {{ $option }}
+                                </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
@@ -360,103 +376,5 @@
             </div>
         </div>
         {{-- /// end--}}
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEditOffer"
-            aria-labelledby="offcanvasEditOfferLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasEditOfferLabel" class="offcanvas-title">Edit Offer</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body mx-0 flex-grow-0">
-                <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm"
-                    novalidate="novalidate" method="POST" action="">
-                    {{-- {{ route('offers.update', ['id' => $offers->id]) }} --}}
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="id" id="user_id">
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-NameOffer">Name Offer</label>
-                        <input type="text" class="form-control" id="add-NameOffer" placeholder="Enter Your Offer"
-                            name="Name" aria-label="">
-                        <div
-                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="Type">Service</label>
-                        <div class="position-relative">
-                            <select id="Type" name="service_id" class="select2 form-select select2-hidden-accessible"
-                                data-select2-id="service_id" tabindex="-1" aria-hidden="true">
-                                <option value="" data-select2-id="2">Select</option>
-                                @foreach ($services as $service)
-                                <option value="{{ $service->id }}">{{ $service->Service_Name }}
-                                    ({{ $service->Type_Service }})</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="Type">Coach</label>
-                        <div class="position-relative">
-                            <select id="Type" name="staff_id" class="select2 form-select select2-hidden-accessible"
-                                data-select2-id="Type" tabindex="-1" aria-hidden="true">
-                                <option value="" data-select2-id="2">Select</option>
-                                @foreach ($staffs as $item)
-                                <option value="{{$item->id}}">{{$item->First_Name}} {{$item->Last_Name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-Description">Description </label>
-                        <textarea type="text" class="form-control" id="add-Description"
-                            placeholder="Enter Your Description" name="Description" aria-label=""></textarea>
-                        <div
-                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="type">Localization</label>
-                        <div class="type">
-                            <select id="Localization" name="Localization"
-                                class="select2 form-select select2-hidden-accessible" data-select2-id="Type"
-                                tabindex="-1" aria-hidden="true">
-                                <option value="" data-select2-id="2">Select</option>
-                                <option value="Online">Online</option>
-                                <option value="Clinic">Clinic</option>
-                                <option value="Home">Home</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-Duration">Duration</label>
-                        <input type="text" class="form-control" id="add-Duration"
-                            placeholder="Enter Your Duration (00:00:00)" name="Duration" aria-label="">
-                        <div
-                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-COST">Cost</label>
-                        <input type="number" min="0" class="form-control" id="add-COST" placeholder="Enter Your Cost"
-                            name="Cost" aria-label="">
-                        <div
-                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <div class="mb-3 fv-plugins-icon-container">
-                        <label class="form-label" for="add-Capacity">Capacity</label>
-                        <input type="number" min="0" class="form-control" id="add-Capacity"
-                            placeholder="Enter Your Capacity" name="Capacity" aria-label="">
-                        <div
-                            class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                    <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                    <input type="hidden">
-                </form>
-            </div>
-        </div>
 
         @endsection

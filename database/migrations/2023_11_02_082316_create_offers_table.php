@@ -20,11 +20,11 @@ return new class extends Migration
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('staff_id');
             $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade')->onUpdate('cascade');
-            $table->time('Duration');
-            $table->decimal('Cost');
-            $table->string('Localization');
+            $table->enum('Class_Type', ['Online', 'Clinic', 'Home']);
+            $table->time('Class_Schedule');
+            $table->decimal('Cost', 10, 2);
             $table->string('Description');
-            $table->integer('Capacity');
+            $table->enum('Duration_Type', ['Monthly', 'Daily', 'Yearly']);
             $table->timestamps();
             $table->softDeletes();
         });

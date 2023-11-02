@@ -46,7 +46,7 @@
           "slug": "Staff-manage-Staff"
         },
         {
-          "url": "/Staff/Coaches-list",
+          "url": "/staff/Coaches-list",
           "name": "Coaches list",
           "slug": "Coaches-list"
         }

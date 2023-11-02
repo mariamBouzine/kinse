@@ -18,13 +18,14 @@ use Illuminate\Support\Facades\Route;
 $controller_path = 'App\Http\Controllers';
 
 // Main Page Route
-Route::get('/', $controller_path . '\authentications\LoginBasic@index')->name('dashboard-analytics');
+// Auth::routes();
+Route::get('/', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 Route::get('/dashboard/dashboards-analytics', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 Route::get('/dashboard/crm', $controller_path . '\dashboard\Crm@index')->name('dashboard-crm');
 //Appointment
 Route::get('/appointment/appointment-manage', $controller_path . '\appointment\appointmentManage@index')->name('appointment-manage');
 Route::post('/appointment/appointment-manage', $controller_path . '\appointment\appointmentManage@filterByDate')->name('appointments.filter');
-
+Route::post('/appointment/appointment-manage/{id}', $controller_path . '\appointment\appointmentManage@handleAppointment')->name('appointments.handleAppointment');
 //patients
 Route::get('/patients/patients-manage', $controller_path . '\patients\patientsManage@index')->name('patients-manage');
 //wallet
@@ -39,7 +40,7 @@ Route::put('/service/service-manage/{id}', $controller_path . '\service\serviceM
 // Route::resource('/service','serviceManage');
 //offer
 Route::get('/service/offer-manage', $controller_path . '\service\offerManage@index')->name('pages-service-offer-manage');
-Route::post('/offer',  $controller_path .'\service\offerManage@store')->name('offer.index');
+Route::post('/offer',  $controller_path .'\service\offerManage@store');
 Route::get('/offer/offer-manage/{id}/restore',  $controller_path .'\service\offerManage@restore')->name('offer.restore');
 Route::delete('/service/service-manage/{id}/destroyoffer', $controller_path .'\service\offerManage@destroy')->name('offer.destroy');
 Route::get('/service/service-manage/{id}/edit',  $controller_path .'\service\offerManage@edit')->name('offer.edit');
@@ -51,6 +52,11 @@ Route::post('/staff',  $controller_path .'\staff\staffManage@store')->name('staf
 Route::get('/staff/Staff-manage/{id}/restore',  $controller_path .'\staff\staffManage@restore')->name('staff.restore');
 Route::delete('/staff/Staff-manage/{id}/destroystaff', $controller_path .'\staff\staffManage@destroy')->name('staff.destroy');
 Route::put('/staff/Staff-manage/update/{id}', $controller_path .'\staff\staffManage@update')->name('staff.update');
+
+//coaches
+Route::get('/staff/Coaches-list', $controller_path . '\staff\CoachesListManage@index')->name('Staff-Coaches-list');
+Route::put('/staff/Coaches-list/{id}/accept', $controller_path .'\staff\CoachesListManage@accept')->name('staff.accept');
+Route::put('/staff/Coaches-list/{id}/reject', $controller_path .'\staff\CoachesListManage@reject')->name('staff.reject');
 
 // layout
 Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');
@@ -113,3 +119,5 @@ Route::get('/form/layouts-horizontal', $controller_path . '\form_layouts\Horizon
 // tables
 Route::get('/tables/basic', $controller_path . '\tables\Basic@index')->name('tables-basic');
 Route::get('/tables/datatables-basic',  $controller_path . '\tables\DatatableBasic@index')->name('tables-datatables-basic');
+
+

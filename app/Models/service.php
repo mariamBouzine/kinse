@@ -14,5 +14,4 @@ class service extends Model
     {
         return $this->hasMany(offer::class);
     }
-    
 }

@@ -3,10 +3,10 @@
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
     <a href="{{url('/')}}" class="app-brand-link">
-      {{-- <span class="app-brand-logo demo">
+      <span class="app-brand-logo demo">
         @include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])
-      </span> --}}
-      <span class="app-brand-text demo menu-text fw-bold ms-2">Kinse</span>
+      </span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">physiotherapy</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-autod-block d-xl-none">

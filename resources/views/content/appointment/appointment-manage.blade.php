@@ -8,7 +8,16 @@
 
 @section('content')
 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Appointment /</span> appointment manage</h4>
-
+@if ($message = Session::get('success'))
+<div class="alert alert-success">
+    <p>{{ $message }}</p>
+</div>
+@endif
+@if ($message = Session::get('error'))
+<div class="alert alert-success">
+    <p>{{ $message }}</p>
+</div>
+@endif
 <div class="card">
   <div class="card-header">
     <h5 class="card-title mb-0">Search Filter</h5>
@@ -63,6 +72,7 @@
               <th>Offer</th>
               <th>Price</th>
               <th>Date</th>
+              <th>Duration Type</th>
               <th>status</th>
               <th>Action</th>
             </tr>
@@ -93,34 +103,43 @@
                 <span>{{$item["phone"]}}</span>
               </td>
               <td>
-                <span>
-                  @if ($item->offer)
-                  {{ $item->offer->Name }}
-                  @else
-                  No Offer
-                  @endif
+                @if ($item->offer)
+                <span> {{ $item->offer->Name }}</span>
+                @else
+                <span class="badge  bg-label-primary me-1">
+                  No offer
                 </span>
+                @endif
               </td>
               <td>
-                <span>
-                  @if ($item->offer)
-                  {{ $item->offer->Cost }}$
-                  @else
-                  No Offer
-                  @endif
+                @if ($item->offer)
+                <span>{{ $item->offer->Cost }}$</span>
+                @else
+                <span class="badge  bg-label-primary me-1">
+                  No offer
                 </span>
+                @endif
               </td>
               <td>
-                <span>{{$item["Appointment_Date"]}}</span>
+                <span>{{$item["Appointment_DateTime"]}}</span>
               </td>
               <td>
-                <span class="badge  bg-label-info me-1">
-                  @if ($item->offer)
-                  {{ $item->offer->Localization }}
-                  @else
-                  No Offer
-                  @endif
+                @if ($item->offer)
+                <span class="badge  bg-label-dark me-1">{{ $item->offer->Duration_Type }}</span>
+                @else
+                <span class="badge  bg-label-primary me-1">
+                  No offer
                 </span>
+                @endif
+              </td>
+              <td>
+                @if ($item->offer)
+                <span class="badge  bg-label-info me-1">{{ $item->offer->Class_Type }}</span>
+                @else
+                <span class="badge  bg-label-primary me-1">
+                  No offer
+                </span>
+                @endif
               </td>
               <td>
                 <div class="d-inline-block text-nowrap">
@@ -133,7 +152,7 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddOffer{{$item->id}}"
                   aria-labelledby="offcanvasAddOfferLabel">
                   <div class="offcanvas-header">
-                    <h5 id="offcanvasAddOfferLabel" class="offcanvas-title">Add Offer</h5>
+                    <h5 id="offcanvasAddOfferLabel" class="offcanvas-title">Handle Appointment</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                       aria-label="Close"></button>
                   </div>
@@ -147,19 +166,19 @@
                     @endforeach
                     @endif
                     <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm"
-                      novalidate="novalidate" method="POST" action="/offer">
+                      novalidate="novalidate" method="POST" action="{{ route('appointments.handleAppointment',['id' => $item->id]) }}">
                       @csrf
-                      {{-- <input type="hidden" name="id" id="user_id"> --}}
+                      <input type="hidden" name="appointment_id" id="appointment_id" value="{{$item->id}}">
                       <div class="mb-3 fv-plugins-icon-container">
                         <div class="position-relative">
-                          <select id="Type" name="service_id" class="select2 form-select select2-hidden-accessible"
+                          <select id="Type" name="staff_id" class="select2 form-select select2-hidden-accessible"
                             data-select2-id="service_id" tabindex="-1" aria-hidden="true">
                             <option value="" data-select2-id="2">Select</option>
-                            {{-- @foreach ($staffs as $staff)
-                            <option value="">
-                              {{ $staff->First_Name }} {{ $staff->Last_Name }} 
+                            @foreach ($staffs as $staff)
+                            <option value="{{ $staff->id }}">
+                              {{ $staff->First_Name }} {{ $staff->Last_Name }}
                             </option>
-                            @endforeach --}}
+                            @endforeach
                           </select>
                         </div>
                       </div>
@@ -176,9 +195,6 @@
         </table>
       </div>
     </div>
-    <!-- Offcanvas to add new user -->
-
   </div>
-
 </div>
 @endsection

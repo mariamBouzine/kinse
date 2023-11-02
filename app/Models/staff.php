@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class staff extends Model
 {
     use HasFactory;
@@ -13,5 +14,9 @@ class staff extends Model
     public function offer()
     {
         return $this->hasMany(offer::class);
+    }
+    public function Appointmentscoach()
+    {
+        return $this->hasMany(Appointmentscoach::class);
     }
 }

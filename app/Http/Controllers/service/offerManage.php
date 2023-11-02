@@ -14,7 +14,7 @@ class offerManage extends Controller
   {
     $offers = offer::all();
     $services = service::all();
-    $staffs = staff::all();
+    $staffs = staff::where('status', 'Accepted')->orderBy('last_name')->get();
     return view('content.service.offer-manage', ['offers' => $offers, 'services' => $services, 'staffs' => $staffs]);
   }
   /**
@@ -29,26 +29,26 @@ class offerManage extends Controller
    */
   public function store(Request $request)
   {
-    $data = $request->validate([
+    $request->validate([
       'Name' => 'required',
       'service_id' => 'required',
       'staff_id' => 'required',
       'Duration' => 'required',
       'Cost' => 'required',
-      'Localization' => 'required',
+      'Class_Type' => 'required',
       'Description' => 'required',
-      'Capacity' => 'required',
+      'Duration_Type' => 'required',
     ]);
 
     $offer = new offer();
     $offer->Name = $request->input('Name');
     $offer->service_id = $request->input('service_id');
     $offer->staff_id = $request->input('staff_id');
-    $offer->Duration = $request->input('Duration');
+    $offer->Class_Schedule = $request->input('Class_Schedule');
     $offer->Cost = $request->input('Cost');
-    $offer->Localization = $request->input('Localization');
+    $offer->Class_Type = $request->input('Class_Type');
     $offer->Description = $request->input('Description');
-    $offer->Capacity = $request->input('Capacity');
+    $offer->Duration_Type = $request->input('Duration_Type');
     $offer->save();
     return Redirect("/service/offer-manage")->with("success", "offer is added !");
   }
@@ -76,11 +76,11 @@ class offerManage extends Controller
     $offer->Name = $request->input('Name');
     $offer->service_id = $request->input('service_id');
     $offer->staff_id = $request->input('staff_id');
-    $offer->Duration = $request->input('Duration');
+    $offer->Class_Schedule = $request->input('Class_Schedule');
     $offer->Cost = $request->input('Cost');
-    $offer->Localization = $request->input('Localization');
+    $offer->Class_Type = $request->input('Class_Type');
     $offer->Description = $request->input('Description');
-    $offer->Capacity = $request->input('Capacity');
+    $offer->Duration_Type = $request->input('Duration_Type');
     $offer->save();
     return redirect('/service/offer-manage')->with('success', 'Record updated successfully');
   }

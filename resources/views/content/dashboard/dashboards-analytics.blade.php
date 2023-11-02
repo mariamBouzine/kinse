@@ -152,6 +152,7 @@
                 <th>Offer</th>
                 <th>Price</th>
                 <th>Date</th>
+                <th>Duration Type</th>
                 <th>status</th>
               </tr>
             </thead>
@@ -180,34 +181,44 @@
                   <span>{{$item["phone"]}}</span>
                 </td>
                 <td>
-                  <span>
-                    @if ($item->offer)
-                    {{ $item->offer->Name }}
-                    @else
+                  @if ($item->offer)
+                  <span>{{ $item->offer->Name }}</span>
+                  @else
+                  <span class="badge  bg-label-primary me-1">
                     No Offer
-                    @endif
                   </span>
+                  @endif
                 </td>
                 <td>
                   <span>
                     @if ($item->offer)
-                    {{ $item->offer->Cost }}$
+                    <span>{{ $item->offer->Cost }}$</span>
                     @else
-                    No Offer
+                    <span class="badge  bg-label-primary me-1">
+                      No Offer
+                    </span>
                     @endif
-                  </span>
                 </td>
                 <td>
-                  <span>{{$item["Appointment_Date"]}}</span>
+                  <span>{{$item["Appointment_DateTime"]}}</span>
                 </td>
                 <td>
-                  <span class="badge  bg-label-info me-1">
-                    @if ($item->offer)
-                    {{ $item->offer->Localization }}
-                    @else
-                    No Offer
-                    @endif
+                  @if ($item->offer)
+                  <span class="badge  bg-label-dark me-1">{{ $item->offer->Duration_Type }}</span>
+                  @else
+                  <span class="badge  bg-label-primary me-1">
+                    No offer
                   </span>
+                  @endif
+                </td>
+                <td>
+                  @if ($item->offer)
+                  <span class="badge  bg-label-info me-1">{{ $item->offer->Class_Type }}</span>
+                  @else
+                  <span class="badge  bg-label-primary me-1">
+                    No offer
+                  </span>
+                  @endif
                 </td>
               </tr>
               @endforeach
@@ -299,14 +310,14 @@
   <div class="col-md-6 col-lg-4 order-2 mb-4">
     <div class="card h-100">
       <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Doctors List</h5>
+        <h5 class="card-title m-0 me-2">New Coaches List</h5>
         <div class="dropdown">
           <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="bx bx-dots-vertical-rounded"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-            <a class="dropdown-item" href="/staff/Staff-manage">more</a>
+            <a class="dropdown-item" href="/staff/Coaches-list">more</a>
           </div>
         </div>
       </div>
